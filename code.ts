@@ -1,6 +1,4 @@
-declare const __html__: string;
-///<reference types="@figma/plugin-typings" />
-
+/// <reference types="@figma/plugin-typings" />
 // // This plugin will open a window to prompt the user to enter a number, and
 // // it will then create that many rectangles on the screen.
 
@@ -64,38 +62,32 @@ declare const __html__: string;
 //   }
 // };npm ls @figma/plugin-typings
 
+figma.showUI(__html__, { width: 360, height: 160 });
 
-// figma.showUI(__html__, { width: 360, height: 160 });
+interface HtmlNode {
+  text?: string;
+}
 
-// interface HtmlNode {
-//   text?: string;
-// }
+interface HtmlNodesMessage {
+  type: "html-nodes";
+  nodes: HtmlNode[];
+}
 
-// type TextNode = SceneNode & {
-//   characters: string;
-//   fontSize: number;
-// };
+figma.ui.onmessage = async (msg: HtmlNodesMessage) => {
+  if (msg.type === "html-nodes") {
+    const nodes: HtmlNode[] = msg.nodes;
 
-// interface HtmlNodesMessage {
-//   type: "html-nodes";
-//   nodes: HtmlNode[];
-// }
+    await figma.loadFontAsync({ family: "Roboto", style: "Regular" });
 
-// figma.ui.onmessage = async (msg: HtmlNodesMessage) => {
-//   if (msg.type === "html-nodes") {
-//     const nodes: HtmlNode[] = msg.nodes;
+    nodes.forEach((el, i) => {
+      const text: TextNode = figma.createText();
+      text.characters = el.text || "Untitled";
+      text.fontSize = 16;
+      text.x = 100;
+      text.y = i * 60;
+      figma.currentPage.appendChild(text);
+    });
 
-//     await figma.loadFontAsync({ family: "Roboto", style: "Regular" });
-
-//     nodes.forEach((el: HtmlNode, i: number) => {
-//       const text: TextNode = figma.createText();
-//       text.characters = el.text || "Untitled";
-//       text.fontSize = 16;
-//       text.x = 100;
-//       text.y = i * 60;
-//       figma.currentPage.appendChild(text);
-//     });
-
-//     figma.closePlugin("Created Text Nodes");
-//   }
-// };
+    figma.closePlugin("✅ Created Text Nodes");
+  }
+};
