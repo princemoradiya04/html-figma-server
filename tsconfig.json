@@ -1,17 +1,14 @@
 {
   "compilerOptions": {
-    "target": "es6",
-    "lib": ["es6"],
-    "types": ["node"],
+    "target": "es2020",
+    "lib": ["es2020", "dom"],
+    "types": ["@figma/plugin-typings"],
     "strict": true,
     "esModuleInterop": true,
-    "typeRoots": [
-      "./node_modules/@types",
-      "./node_modules/@figma"
-    ],
+    "moduleResolution": "node",
+    "typeRoots": ["./node_modules/@types", "./node_modules/@figma"],
     "outDir": "dist"
   },
-  "include": [
-    "code.ts"
-  ]
+  "include": ["code.ts", "code.js"],
+  "exclude": ["node_modules"]
 }

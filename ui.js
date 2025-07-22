@@ -20,7 +20,10 @@ document.getElementById("convert").onclick = async () => {
 
     console.log("📤 Sending data to Figma plugin:", data);
 
-    parent.postMessage({ pluginMessage: { type: "create-nodes", data } }, "*");
+    parent.postMessage(
+      { pluginMessage: { type: "html-nodes", nodes: data.children } },
+      "*"
+    );
 
     document.getElementById("convert").textContent = "Converted";
   } catch (err) {

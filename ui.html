@@ -1,5 +1,9 @@
 <!DOCTYPE html>
 <html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Convert Website to Figma</title>
+  </head>
   <body>
     <h3>Convert Website to Figma</h3>
     <input
@@ -9,16 +13,7 @@
       style="width: 100%; padding: 8px"
     />
     <button id="convert">Convert to Figma</button>
+    
     <script src="ui.js"></script>
   </body>
 </html>
-
-<script>
-  // This script handles the button click to send the URL to the plugin
-  document.getElementById("convert").onclick = () => {
-    const url = document.getElementById("url").value.trim();
-    parent.postMessage({ pluginMessage: { type: "fetch-url", url } }, "*");
-  };
-
-console.log("UI script loaded. Waiting for button click...");
-</script>
