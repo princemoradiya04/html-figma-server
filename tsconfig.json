@@ -4,10 +4,12 @@
     "lib": ["es6"],
     "types": ["node"],
     "strict": true,
+    "esModuleInterop": true,
     "typeRoots": [
       "./node_modules/@types",
       "./node_modules/@figma"
-    ]
+    ],
+    "outDir": "dist"
   },
   "include": [
     "code.ts"
